@@ -1,9 +1,4 @@
 
-var output = document.getElementById("output");
-
-
-console.log("begin");
-
 var quizContent = [
     {
         text: "What color is the sky?",
@@ -21,12 +16,33 @@ var quizContent = [
     answer: "yellow"
 },
  ];
- var paragraph=document.createElement('h2');
-for (i=0; i<3; i++){ 
+ var paragraph=document.getElementById("question");
+ var answerOptions = document.getElementById("button");
 
-var question = quizContent[i];
-var print = question['text'];
-paragraph.append(print);
-//paragraph.textContent = questions.text;
+function quizQuestions (assess){
+ var question = assess.text
+ var choices = assess.choices
+ paragraph.textContent = question
+ assess.choices.map((choice)=>{
+    var btn = answerOptions.appendChild(document.createElement("button"));
+    btn.textContent=choice;
+ })
+}
+
+
+function handleClick (event){
+ console.log("clicked");
+}
+
+answerOptions.addEventListener("click", handleClick);
+
+for (i=0; i<3; i++){
+   var answer = quizContent[i].answer
+    if (i!=0) {
+        for (var j=0; j<4; j++) {
+            answerOptions.removeChild("button");
+        }
+    }
+    quizQuestions(quizContent[i])
+    //paragraph.textContent = questions.text;
 };
-output.appendChild(paragraph);
