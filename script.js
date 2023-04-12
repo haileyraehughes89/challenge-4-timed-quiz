@@ -6,28 +6,41 @@ var quizContent = [ //defines a variable array that  contains all quiz questions
         answer: "blue"
     },
    {
-        text: "What color is the grass?",
-        choices: ["blue", "purple", "yellow", "green"],
-        answer: "green"
+        text: "Is the ocean made of water?",
+        choices: ["yes", "no"],
+        answer: "yes"
    },
    {
-    text: "What color is the sun?",
-    choices: ["blue", "purple", "yellow", "green"],
-    answer: "yellow"
+    text: "What is the sum of 1 and 2?",
+    choices: ["1", "2", "3", "4"],
+    answer: "3"
 },
  ];
- var paragraph=document.getElementById("question"); //defines paragraph variable as html #question (line 15 in HTML)
- var answerOptions = document.getElementById("button"); //defines answerOptions variable as html #button (line 16)
+ var paragraph=document.getElementById("question"); 
+ var answerOptions = document.getElementById("button"); 
 
-function quizQuestions (assess){ //defining function quizQuestion with the parameter assess 
- var question = assess.text //defines question as the output of assess after running text object from quizContent (?)
- //var choices = assess.choices//repeat of above but with choices
- paragraph.textContent = question //question will be printed in #paragraph div
-//  assess.choices.map((choice)=>{
-//     var btn = answerOptions.appendChild(document.createElement("button"));
-//     btn.textContent=choice;
-// })
-}
+function quiz(assess){ 
+    var question = assess.text  
+        paragraph.textContent = question
+        var selection = assess.choices
+        answerOptions.innerHTML = "" //this clears answerOptions element before generating new question
+        selection.forEach((selection)=>{
+        var btn = answerOptions.appendChild(document.createElement("button"));
+        btn.textContent=selection;
+            btn.addEventListener("click",function move(){
+                console.log("clicked")
+                var next = quizContent.indexOf(assess) + 1;
+                quiz(quizContent[next])
+                
+        
+
+            
+            })
+    
+        })
+    }
+
+
 
 
 // function handleClick (event){
@@ -36,17 +49,22 @@ function quizQuestions (assess){ //defining function quizQuestion with the param
 
 //answerOptions.addEventListener("click", handleClick);
 
-function showContent (){ //defines function showContent - adding because I think that I will need more than just for statement to change between questions
-    for (i=0; i<3; i++){
-//    var answer = quizContent[i].answer
-//     if (i!=0) {
-//   //      for (var j=0; j<4; j++) {
-//     //        answerOptions.removeChild("button");
-//       //  }
-//     }
-   quizQuestions(quizContent[i]) //this shows the very last question. I can change this to 0,1,2, 0+1, i+1 (goes back to end) maybe write a new function? 
-    //paragraph.textContent = questions.text;
+function showContent (){
+     //this shows the very last question. I can change this to 0,1,2, 0+1, i+1 (goes back to end) maybe write a new function?
+    for (i=1; i<quizContent.length-1; i++){
+        
+         quiz(quizContent[0])
+        
+    // if (i!=0) {
+    //    for (var j=0; j<4; j++) {
+    //        answerOptions.removeChild("btn");
+    //    }
+    // }
+   
+    
+    
+     
 };
 }
+showContent ();
 
-showContent ()
