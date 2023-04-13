@@ -70,7 +70,7 @@ function startQuiz () {
                 percentCorrect = score/quizContent.length*100;
                 var roundedPercent = Math.round(percentCorrect);
             if (currentIndex < quizContent.length) {
-                quiz(quizContent[next])}
+                takeQuiz(quizContent[next])}
             else{
             answerOptions.innerHTML = "";
             paragraph.textContent="Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%. Please submit your initials.";
