@@ -19,16 +19,20 @@ var quizContent = [ //defines a variable array that  contains all quiz questions
 },
  ];
 
+
  var paragraph=document.getElementById("question"); 
  var answerOptions = document.getElementById("button");
  var initials = document.getElementById("submission")
+
  var score = 0
  var currentIndex = 0
-function quiz(assess){ 
+
+ function quiz(assess){ 
     var question = assess.text  
         paragraph.textContent = question
     var selection = assess.choices
     var correctAnswer = assess.answer
+    var start =
         answerOptions.innerHTML = "" //this clears answerOptions element before generating new question
         selection.forEach((selection)=>{
        
@@ -58,8 +62,18 @@ function quiz(assess){
             answerOptions.innerHTML = "";
             paragraph.textContent="Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%. Please submit your initials.";
             var inits = document.createElement('input');
+            var submit = document.createElement('button');
+            submit.textContent= "Submit"
             inits.setAttribute("placeholder", "a;lskdfj");
-            
+            document.body.appendChild(inits);
+            document.body.appendChild(submit);
+            submit.addEventListener("click",function submitInitials () {
+                var loggedInits = inits.value.trim();
+                console.log("submit working");
+             localStorage.setItem("initials", loggedInits);
+              localStorage.setItem("score", roundedPercent);
+
+             })
             }
         })
     })
