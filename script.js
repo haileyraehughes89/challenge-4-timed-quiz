@@ -20,7 +20,8 @@ var quizContent = [ //defines a variable array that  contains all quiz questions
  ];
 
  var paragraph=document.getElementById("question"); 
- var answerOptions = document.getElementById("button"); 
+ var answerOptions = document.getElementById("button");
+ var initials = document.getElementById("submission")
  var score = 0
  var currentIndex = 0
 function quiz(assess){ 
@@ -28,14 +29,11 @@ function quiz(assess){
         paragraph.textContent = question
     var selection = assess.choices
     var correctAnswer = assess.answer
-
         answerOptions.innerHTML = "" //this clears answerOptions element before generating new question
         selection.forEach((selection)=>{
        
         var btn = answerOptions.appendChild(document.createElement("button"));
-        btn.textContent=selection;
-
-            
+        btn.textContent=selection;      
 
             btn.addEventListener ("click", function finalGrade() {
                 rightAnswer = false
@@ -43,8 +41,7 @@ function quiz(assess){
                 if (btn.textContent === correctAnswer) {
                     console.log("correct"), rightAnswer= true;
                 } else { console.log("incorrect")}
-                
-                
+                     
                 if (rightAnswer) { score++; console.log("add point"
                 )
                 } else {console.log("no score change")}
@@ -58,24 +55,15 @@ function quiz(assess){
             if (currentIndex < quizContent.length) {
                 quiz(quizContent[next])}
             else{
-            console.log("Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%.");
-
-            paragraph.textContent="Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%.";
-            answerOptions.innerHTML = ""
+            answerOptions.innerHTML = "";
+            paragraph.textContent="Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%. Please submit your initials.";
+            var inits = document.createElement('input');
+            inits.setAttribute("placeholder", "a;lskdfj");
             
-            console.log(roundedPercent);
             }
-            })
         })
-    }
-function showContent (){
-
-    if (currentIndex<quizContent.length) {
-         quiz(quizContent[0])
-    } else { "YOU ARE DONE NOW"
-
-
-    };
+    })
 }
-showContent ();
+         quiz(quizContent[0])
+
 
