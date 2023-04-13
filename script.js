@@ -22,12 +22,25 @@ var quizContent = [ //defines a variable array that  contains all quiz questions
 
  var paragraph=document.getElementById("question"); 
  var answerOptions = document.getElementById("button");
- var initials = document.getElementById("submission")
+ var initials = document.getElementById("submission");
+ var startContainer = document.getElementById("startQuiz");
 
  var score = 0
  var currentIndex = 0
 
- function quiz(assess){ 
+function startMenu () {
+    var startButton = document.createElement("button")
+    startButton.textContent = "Start"
+    startContainer.appendChild(startButton);
+    startButton.addEventListener("click", startQuiz)
+    
+}
+
+function startQuiz () {
+    startContainer.remove()
+    takeQuiz(quizContent[0])
+}
+ function takeQuiz(assess){ 
     var question = assess.text  
         paragraph.textContent = question
     var selection = assess.choices
@@ -78,6 +91,6 @@ var quizContent = [ //defines a variable array that  contains all quiz questions
         })
     })
 }
-         quiz(quizContent[0])
+startMenu()
 
 
