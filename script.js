@@ -22,6 +22,7 @@ var quizContent = [ //defines a variable array that  contains all quiz questions
  var paragraph=document.getElementById("question"); 
  var answerOptions = document.getElementById("button"); 
  var score = 0
+ var currentIndex = 0
 function quiz(assess){ 
     var question = assess.text  
         paragraph.textContent = question
@@ -34,15 +35,9 @@ function quiz(assess){
         var btn = answerOptions.appendChild(document.createElement("button"));
         btn.textContent=selection;
 
-            btn.addEventListener("click",function move(){
-                var next = quizContent.indexOf(assess) + 1;
-                quiz(quizContent[next])  
-            // if (next > quizContent.length) {
-            //         console.log("Quiz complete! Final score");
-            //     }
-            })
+            
 
-            btn.addEventListener ("click", function correct() {
+            btn.addEventListener ("click", function finalGrade() {
                 rightAnswer = false
             
                 if (btn.textContent === correctAnswer) {
@@ -53,20 +48,34 @@ function quiz(assess){
                 if (rightAnswer) { score++; console.log("add point"
                 )
                 } else {console.log("no score change")}
-
-            console.log(score);
                 
             })
-           
+            btn.addEventListener("click",function move(){
+                var next = quizContent.indexOf(assess) + 1;
+                currentIndex++;
+                percentCorrect = score/quizContent.length*100;
+                var roundedPercent = Math.round(percentCorrect);
+            if (currentIndex < quizContent.length) {
+                quiz(quizContent[next])}
+            else{
+            console.log("Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%.");
+
+            paragraph.textContent="Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%.";
+            answerOptions.innerHTML = ""
+            
+            console.log(roundedPercent);
+            }
+            })
         })
     }
-//answerOptions.addEventListener("click", handleClick);
 function showContent (){
-     //this shows the very last question. I can change this to 0,1,2, 0+1, i+1 (goes back to end) maybe write a new function?
-    for (i=1; i<quizContent.length-1; i++){
-        
+
+    if (currentIndex<quizContent.length) {
          quiz(quizContent[0])
-};
+    } else { "YOU ARE DONE NOW"
+
+
+    };
 }
 showContent ();
 
