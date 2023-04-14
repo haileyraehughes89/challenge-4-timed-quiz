@@ -24,28 +24,56 @@ var quizContent = [ //defines a variable array that  contains all quiz questions
  var answerOptions = document.getElementById("button");
  var initials = document.getElementById("submission");
  var startContainer = document.getElementById("startQuiz");
+ var timeEl = document.getElementById("timer");
+ //var mainEl = document.getElementById("main");
 
  var score = 0
  var currentIndex = 0
+ var secondsLeft = 5//quizContent.length*10
 
 function startMenu () {
     var startButton = document.createElement("button")
     startButton.textContent = "Start"
     startContainer.appendChild(startButton);
-    startButton.addEventListener("click", startQuiz)
+    startButton.addEventListener("click", startQuiz)    
+}
+function setTime() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
+  
+      if(secondsLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to create and append image
+        console.log("finished")
+      }
+  
+    }, 1000);
+  }
+
+
+
+function timerEnd() {
+    if (secondsLeft = 0) { takeQuiz();{move();{end()}}}
+    
     
 }
-
 function startQuiz () {
     startContainer.remove()
+   
+
+
     takeQuiz(quizContent[0])
+    setTime();
 }
  function takeQuiz(assess){ 
     var question = assess.text  
         paragraph.textContent = question
     var selection = assess.choices
     var correctAnswer = assess.answer
-    var start =
+    
         answerOptions.innerHTML = "" //this clears answerOptions element before generating new question
         selection.forEach((selection)=>{
        
@@ -69,9 +97,9 @@ function startQuiz () {
                 currentIndex++;
                 percentCorrect = score/quizContent.length*100;
                 var roundedPercent = Math.round(percentCorrect);
-            if (currentIndex < quizContent.length) {
+            if (currentIndex < quizContent.length && secondsLeft > 0) {
                 takeQuiz(quizContent[next])}
-            else{
+            else function end (){
             answerOptions.innerHTML = "";
             paragraph.textContent="Quiz complete! You answered " + score + " questions correctly, out of the " + quizContent.length + " on the quiz. This is a " + roundedPercent + "%. Please submit your initials.";
             var inits = document.createElement('input');
